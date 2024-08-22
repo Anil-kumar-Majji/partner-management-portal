@@ -338,7 +338,7 @@ function OidcClientsList() {
                                                                                     )
                                                                                 }
                                                                                 {showDeactivatePopup && (
-                                                                                    <DeactivatePopup closePopUp={closeDeactivatePopup} clientData={client} request={deactivateRequest} headerMsg='deactivateOidcClient.oidcClientName' descriptionMsg='deactivateOidcClient.description' clientName={client.oidcClientName}></DeactivatePopup>
+                                                                                    <DeactivatePopup closePopUp={closeDeactivatePopup} clientData={client} request={deactivateRequest} headerMsg='deactivateOidcClient.oidcClientName' descriptionMsg='deactivateOidcClient.description' clientName={client.oidcClientName} addIfan/>
                                                                                 )}
                                                                             </div>
                                                                         )}

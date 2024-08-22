@@ -375,6 +375,14 @@
         "errorInSbiList": "أثناء جلب قوائم SBI، واجهنا خطأً.",
         "guidence": "ملاحظة: 1. لا يمكن للمستخدم إضافة أجهزة إلا بعد موافقة مسؤول الشريك على SBI. 2. لا يمكن للمستخدم إضافة أجهزة بعد انتهاء صلاحية SBI"
     },
+    "deactivateSbi": {
+        "sbiVersionNum": "هل تريد إلغاء تنشيط إصدار SBI ",
+        "description1": "عند النقر فوق تأكيد، تفاصيل SBI الخاصة بك و",
+        "devicesMapped": "الأجهزة المعينة",
+        "description2": "سيتم إلغاء تنشيطه",
+        "deactivateSbiHintSingular": "سيتم إلغاء تنشيط الجهاز {{devicesCount}} المرتبط بـ SBI هذا",
+        "deactivateSbiHintPlural": "سيتم إلغاء تنشيط جميع الأجهزة {{devicesCount}} المرتبطة بـ SBI هذا"
+     },
     "devicesList": {
         "addDevices": "إضافة أجهزة",
         "listOfDevices": "قائمة الأجهزة",

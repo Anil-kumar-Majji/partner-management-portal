@@ -375,6 +375,14 @@
         "errorInSbiList": "Lors de la récupération des listes SBI, nous avons rencontré une erreur.",
         "guidence": "Remarque : 1. L'utilisateur ne peut ajouter des appareils qu'une fois le SBI approuvé par l'administrateur partenaire. 2. L'utilisateur ne peut plus ajouter d'appareils une fois le SBI expiré"
     },
+    "deactivateSbi": {
+        "sbiVersionNum": "Voulez-vous désactiver la version SBI ",
+        "description1": "En cliquant sur Confirmer, vos détails SBI et le ",
+        "devicesMapped": "appareils mappés",
+        "description2": "il sera désactivé",
+        "deactivateSbiHintSingular": " {{devicesCount}} appareil associé à ce SBI sera désactivé",
+        "deactivateSbiHintPlural": "Tous les {{devicesCount}} appareils associés à ce SBI seront désactivés"
+     },
     "devicesList": {
         "addDevices": "Ajouter des périphériques",
         "listOfDevices": "Liste des appareils",

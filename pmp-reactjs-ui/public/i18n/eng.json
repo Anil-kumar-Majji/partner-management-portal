@@ -370,6 +370,14 @@
         "errorInSbiList": "While fetching SBI Lists, we have encountered with an error.",
         "guidence": "Note: 1. User can add devices only after the SBI is approved by Partner Admin. 2. User cannot add devices anymore after the SBI is expired"
     },
+    "deactivateSbi": {
+        "sbiVersionNum": "Do you want to Deactivate the SBI version ",
+        "description1": "On clicking Confirm, your SBI details and the ",
+        "devicesMapped": "devices mapped ",
+        "description2": "to it will be deactivated",
+        "deactivateSbiHintSingular": " {{devicesCount}} device associated to this SBI will be deactivated",
+        "deactivateSbiHintPlural": "All {{devicesCount}} devices associated to this SBI will be deactivated"
+     },
     "devicesList": {
         "addDevices": "Add Devices",
         "listOfDevices": "List of Devices",

@@ -15,6 +15,7 @@ import upArrow from '../../svg/up_arrow.svg';
 import verifiedIcon from '../../svg/verified_icon.svg';
 import expiredIcon from '../../svg/expiry_icon.svg';
 import deactivatedIcon from '../../svg/deactivated_shield_icon.svg';
+import DeactivatePopup from '../common/DeactivatePopup.js';
 
 function SbiList() {
     const { t } = useTranslation();
@@ -26,7 +27,8 @@ function SbiList() {
     const [open, setOpen] = useState(-1);
     const [deactivateBtnId, setDeactivateBtnId] = useState(-1);
     const [sbiList, setSbiList] = useState([]);
-    const submenuRef = useRef([]);
+    const [showDeactivateSbiPopup, setShowDeactivateSbiPopup] = useState(false);
+    const submenuRef = useRef(null);
 
     useEffect(() => {
         handleMouseClickForDropdown(submenuRef, () => setDeactivateBtnId(-1));
@@ -108,6 +110,17 @@ function SbiList() {
             setDeactivateBtnId(deactivateBtnId === index ? null : index);
         }
     };
+
+    const showDeactivatePopup = () => {
+        document.body.style.overflow = 'hidden';
+        setShowDeactivateSbiPopup(true);
+    };
+
+    const closeDeactivatePopup = (selectedSbi) => {
+        devicesList(selectedSbi);
+        setDeactivateBtnId(-1);
+        setShowDeactivateSbiPopup(false);
+    }
 
     const styleForTitle = {
         backArrowIcon: "!mt-[5%]"
@@ -211,12 +224,17 @@ function SbiList() {
                                                 <div className="flex flex-row justify-between items-center relative space-x-3">
                                                     <button disabled={!canAddDevices(sbi)} onClick={() => addDevices(sbi)} className={`${sbi.status === "approved" && !sbi.expired ? 'bg-tory-blue border-[#1447B2]' : 'border-[#A5A5A5] bg-[#A5A5A5] cursor-auto'} ${sbi.status !== "approved" && "disabled"} h-10 w-28 text-white text-xs font-semibold rounded-md ${isLoginLanguageRTL && "ml-3"}`}>{t('sbiList.addDevices')}</button>
                                                     <button onClick={() => devicesList(sbi)} className="h-10 w-28 text-xs px-3 py-1 text-tory-blue bg-white border border-blue-800 font-semibold rounded-md text-center">{t('sbiList.viewDevices')}</button>
-                                                    <button disabled={sbi.status === "deactivated"} ref={el => submenuRef.current[index] = el} onClick={() => onClickAction(sbi, index)} className={`h-10 w-8 text-lg pb-3 ${sbi.status === "deactivated" ? 'border-[#A5A5A5] bg-[#A5A5A5] text-white cursor-auto' : 'text-tory-blue border-[#1447B2] bg-white'}  border font-bold rounded-md text-center`}>...</button>
+                                                    <button disabled={sbi.status === "deactivated"} ref={submenuRef} onClick={() => onClickAction(sbi, index)} className={`h-10 w-8 text-lg pb-3 ${sbi.status === "deactivated" ? 'border-[#A5A5A5] bg-[#A5A5A5] text-white cursor-auto' : 'text-tory-blue border-[#1447B2] bg-white'}  border font-bold rounded-md text-center`}>...</button>
                                                     <img src={upArrow} alt="" className={`cursor-pointer px-3 min-w-fit ${open === index ? "rotate-180" : "rotate-0"}`} onClick={() => setOpen(index === open ? null : index)} tabIndex="0" onKeyPress={(e) => onPressEnterKey(e, () => setOpen(index === open ? null : index))} />
                                                     {deactivateBtnId === index && (
                                                         <div className={`w-[17rem] min-w-fit absolute top-full mt-2 ${isLoginLanguageRTL ? "left-[3.25rem]" : "right-[3.25rem]"} rounded-md bg-white shadow-lg ring-gray-50 border duration-700`}>
-                                                            <div className="flex items-center justify-between cursor-pointer">
-                                                                <button className="block px-4 py-2 text-sm font-medium text-crimson-red">{t('sbiList.deactivate')}</button>
+                                                            <div ref={submenuRef} className="flex items-center justify-between cursor-pointer">
+                                                                <button onClick={() => showDeactivatePopup()} className="block px-4 py-2 text-sm font-medium text-crimson-red" onKeyPress={(e) => onPressEnterKey(e, showDeactivatePopup())}>
+                                                                    {t('sbiList.deactivate')}
+                                                                </button>
+                                                                {showDeactivateSbiPopup &&
+                                                                    <DeactivatePopup closePopUp={()=>closeDeactivatePopup(sbi)} clientData={sbi} headerMsg='deactivateSbi.sbiVersionNum' descriptionMsg='deactivateSbi.description1' deactivateDevices clientName={sbi.sbiVersion}/>
+                                                                }
                                                             </div>
                                                         </div>
                                                     )}

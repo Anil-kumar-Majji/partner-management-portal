@@ -289,7 +289,7 @@ function ApiKeysList() {
                                                                                     </p>
                                                                                     )}
                                                                                 {showDeactivatePopup && (
-                                                                                    <DeactivatePopup closePopUp={closeDeactivatePopup} clientData={client} request={deactivateRequest} headerMsg='deactivateApiKey.apiKeyName' descriptionMsg='deactivateApiKey.description' clientName={client.apiKeyLabel}></DeactivatePopup>
+                                                                                    <DeactivatePopup closePopUp={closeDeactivatePopup} clientData={client} request={deactivateRequest} headerMsg='deactivateApiKey.apiKeyName' descriptionMsg='deactivateApiKey.description' clientName={client.apiKeyLabel} addIfan/>
                                                                                 )}
                                                                             </div>
                                                                         )}

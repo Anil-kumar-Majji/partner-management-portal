@@ -8,12 +8,20 @@ import { HttpService } from "../../services/HttpService.js";
 import { getUserProfile } from "../../services/UserProfileService.js";
 import FocusTrap from "focus-trap-react";
 
-function DeactivatePopup({ closePopUp, clientData, request, headerMsg, descriptionMsg, clientName }) {
+function DeactivatePopup({ closePopUp, clientData, request, headerMsg, descriptionMsg, clientName, deactivateDevices }) {
     const { t } = useTranslation();
     const isLoginLanguageRTL = isLangRTL(getUserProfile().langCode);
     const [errorCode, setErrorCode] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const [dataLoaded, setDataLoaded] = useState(true);
+
+    if (deactivateDevices) {
+        var countOfDevicesGetDeactivate = JSON.parse(clientData.countOfApprovedDevices) + JSON.parse(clientData.countOfPendingDevices)
+    }
+    const validateTextForNumOfDevices = () => {
+        if (countOfDevicesGetDeactivate === 1) { return 'deactivateSbi.deactivateSbiHintSingular' }
+        else { return 'deactivateSbi.deactivateSbiHintPlural' }
+    };
 
     const cancelErrorMsg = () => {
         setErrorMsg("");
@@ -77,19 +85,24 @@ function DeactivatePopup({ closePopUp, clientData, request, headerMsg, descripti
                                     </div>
                                 </div>
                             )}
-                            <div className={`p-[10%] flex-col text-center justify-center items-center`}>
+                            <div className={`p-[9%] flex-col text-center justify-center items-center`}>
                                 {!isLoginLanguageRTL ?
-                                        <p className="text-base leading-snug font-semibold text-black break-words px-[6%]">
-                                            {t(headerMsg)} - '{clientName}'?
-                                        </p>
-                                       : <p className="text-base leading-snug font-semibold text-black break-words px-[6%]">
-                                            {t(headerMsg)} - {clientName}
-                                        </p>
+                                    <p className="text-base leading-snug font-semibold text-black break-words px-[6%]">
+                                        {t(headerMsg)} -'{clientName}'?
+                                    </p>
+                                    : <p className="text-base leading-snug font-semibold text-black break-words px-[6%]">
+                                        {t(headerMsg)} - {clientName}
+                                    </p>
+                                }
+                                <p className="text-sm text-[#666666] break-words py-[6%]">
+                                    {t(descriptionMsg)} {deactivateDevices && <span className="font-bold break-words">{t('deactivateSbi.devicesMapped')}</span>} {deactivateDevices && (t('deactivateSbi.description2'))}
+                                </p>
+                                {deactivateDevices &&
+                                    (<div className="bg-[#FFF7E5] py-1 px-0.5 border-2 break-words border-[#EDDCAF] rounded-md w-full">
+                                        <p className="text-sm font-inter text-[#8B6105]">{t(validateTextForNumOfDevices(), { devicesCount: countOfDevicesGetDeactivate })} {!isLoginLanguageRTL && t('!')}</p>
+                                    </div>)
                                 }
 
-                                <p className="text-sm text-[#666666] break-words py-[6%]">
-                                    {t(descriptionMsg)}
-                                </p>
                                 <div className="flex flex-row items-center justify-center space-x-3 pt-[4%]">
                                     <button onClick={() => closingPopUp()} type="button" className="w-40 h-12 border-[#1447B2] border rounded-md text-tory-blue text-sm font-semibold">{t('requestPolicy.cancel')}</button>
                                     <button onClick={() => clickOnConfirm()} type="button" className={`w-40 h-12 border-[#1447B2] border rounded-md bg-tory-blue text-white text-sm font-semibold ${isLoginLanguageRTL && '!mr-3'}`}>{t('deactivateOidcClient.confirm')}</button>
